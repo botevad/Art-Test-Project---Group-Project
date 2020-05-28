@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ArtResource {
 
-  @GetMapping("/svc/get")
-  @PreAuthorize("hasAuthority('C')")
-  public String get() {
-    return "Hello";
-  }
+    @GetMapping("/svc/get")
+    @PreAuthorize("hasAuthority('C')")
+    public String get() {
+        return "Hello";
+    }
 
-  @GetMapping("/healthcheck")
-  public String laod() {
-    return "Ok";
-  }
+    @GetMapping("/healthcheck")
+    public String laod() {
+        return "Ok";
+    }
 }

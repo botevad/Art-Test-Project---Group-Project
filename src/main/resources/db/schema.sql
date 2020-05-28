@@ -1,4 +1,4 @@
-CREATE TABLE users (
+create TABLE users (
 id INT PRIMARY KEY,
 username VARCHAR(150),
 password VARCHAR(20) ,
@@ -9,18 +9,17 @@ CONSTRAINT chkPhoneNumb CHECK(phone_numb NOT LIKE '%[^+0-9]%' ),
 CONSTRAINT chkPhoneNumbL CHECK(LENGTH(phone_numb)=10 OR LENGTH(phone_numb)=13)
 );
 
-CREATE SEQUENCE users_seq
-MINVALUE 1
-MAXVALUE 99999999999999
-START WITH 1
-INCREMENT BY 1;
+create sequence users_seq
+minvalue 1
+maxvalue 99999999999999
+start with 1
+increment by 1;
 
 --DROP TABLE users;
---DROP SEQUENCE users_seq;
+--DROP SEQUENCE users_seq; 
 
 
-
-CREATE TABLE SMS (
+create TABLE SMS(
     sms_id INT ,
     id INT,
     reciever VARCHAR2(50),
@@ -30,10 +29,10 @@ CREATE TABLE SMS (
     FOREIGN KEY(id) REFERENCES users(id),
     CONSTRAINT chkStatusSMS  CHECK(status IN('send','sent','error' ))
     );
-
+    
   -- DROP TABLE SMS;
-
-CREATE TABLE email (
+    
+create TABLE email (
     email_id INT ,
     id INT,
     reciever VARCHAR2(50),
@@ -42,12 +41,12 @@ CREATE TABLE email (
     PRIMARY KEY(email_id),
     FOREIGN KEY(id) REFERENCES users(id),
     CONSTRAINT chkStatusEmail  CHECK(status IN('send','sent','error' ))
-
+  
       );
  -- DROP TABLE email;
-
-
-CREATE TABLE call (
+    
+    
+create TABLE call (
     call_id INT ,
     id INT,
     status VARCHAR(30),
@@ -57,16 +56,16 @@ CREATE TABLE call (
     CONSTRAINT chkStatusCall  CHECK(status IN('call','in_call','error' )),
     CONSTRAINT chkReciever CHECK(LENGTH(reciever)=10 OR LENGTH(reciever)=13)
     );
-
+    
    --DROP TABLE call;
- CREATE TABLE privilege (
+ create TABLE privilege (
      id INT PRIMARY KEY ,
-     privilege_name VARCHAR(150),
+     privilege_name VARCHAR(150), 
      key VARCHAR2(10)
  );
+--DROP TABLE privilege;
 
-
-CREATE TABLE users_privilege(
+create TABLE users_privilege(
     id           INT GENERATED ALWAYS AS IDENTITY,
     id_user      INT,
     id_privilege INT,
