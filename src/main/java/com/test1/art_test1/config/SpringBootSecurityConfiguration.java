@@ -48,21 +48,21 @@ import javax.servlet.Filter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringBootSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final AuthenticationProvider customAuthenticationProvider;
+  private final AuthenticationProvider customAuthenticationProvider;
 
-    @Autowired
-    @Qualifier("corsFilter")
-    private Filter corsFilter;
+  @Autowired
+  @Qualifier("corsFilter")
+  private Filter corsFilter;
 
-    @Autowired
-    @Qualifier("restAuthenticationEntryPoint")
-    private AuthenticationEntryPoint restAuthenticationEntryPoint;
+  @Autowired
+  @Qualifier("restAuthenticationEntryPoint")
+  private AuthenticationEntryPoint restAuthenticationEntryPoint;
 
 
-    @Autowired
-    public SpringBootSecurityConfiguration(AuthenticationProvider customAuthenticationProvider) {
-        this.customAuthenticationProvider = customAuthenticationProvider;
-    }
+  @Autowired
+  public SpringBootSecurityConfiguration(AuthenticationProvider customAuthenticationProvider) {
+    this.customAuthenticationProvider = customAuthenticationProvider;
+  }
 
 //  @Bean
 //  public UserDetailsService userDetailsService() {
@@ -77,13 +77,13 @@ public class SpringBootSecurityConfiguration extends WebSecurityConfigurerAdapte
 //  }
 
 
-    @Autowired
-    public void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(customAuthenticationProvider);
-    }
+  @Autowired
+  public void configure(AuthenticationManagerBuilder auth) {
+    auth.authenticationProvider(customAuthenticationProvider);
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
 
 //    http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll().anyRequest().authenticated()
 //        //       .authorizeRequests()
@@ -93,87 +93,87 @@ public class SpringBootSecurityConfiguration extends WebSecurityConfigurerAdapte
 //        ;
 
 
-        http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .maximumSessions(10)
-                .and()
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(restAuthenticationEntryPoint)
-                .and()
-                .csrf().disable()
-                .headers().frameOptions().sameOrigin()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/healthcheck").permitAll()
-                .antMatchers("/svc/**").authenticated()
-                .anyRequest().authenticated()
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", HttpMethod.POST.name()))
-                .invalidateHttpSession(true)
-                .and()
-                .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
-                .addFilterBefore(statelessLoginFilter(), UsernamePasswordAuthenticationFilter.class)
-        ;
-    }
+    http
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            .maximumSessions(10)
+            .and()
+            .and()
+            .exceptionHandling()
+            .authenticationEntryPoint(restAuthenticationEntryPoint)
+            .and()
+            .csrf().disable()
+            .headers().frameOptions().sameOrigin()
+            .and()
+            .authorizeRequests()
+            .antMatchers(HttpMethod.POST, "/login").permitAll()
+            .antMatchers(HttpMethod.GET, "/healthcheck").permitAll()
+            .antMatchers("/svc/**").authenticated()
+            .anyRequest().authenticated()
+            .and()
+            .logout()
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout", HttpMethod.POST.name()))
+            .invalidateHttpSession(true)
+            .and()
+            .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
+            .addFilterBefore(statelessLoginFilter(), UsernamePasswordAuthenticationFilter.class)
+    ;
+  }
 
-    @Override
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  @Override
+  @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 
-    @Bean
-    public StatelessLoginFilter statelessLoginFilter() throws Exception {
-        return new StatelessLoginFilter("/login", authenticationManagerBean(), new AuthenticationSuccessHandler());
-    }
+  @Bean
+  public StatelessLoginFilter statelessLoginFilter() throws Exception {
+    return new StatelessLoginFilter("/login", authenticationManagerBean(), new AuthenticationSuccessHandler());
+  }
 
-    @Bean(name = "corsFilter")
-    public Filter corsFilter() {
+  @Bean(name = "corsFilter")
+  public Filter corsFilter() {
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(Boolean.FALSE); // you USUALLY want this
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("HEAD");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("DELETE");
-        config.addAllowedMethod("PATCH");
-        config.addAllowedMethod("PUT");
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowCredentials(Boolean.FALSE); // you USUALLY want this
+    config.addAllowedOrigin("*");
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("GET");
+    config.addAllowedMethod("HEAD");
+    config.addAllowedMethod("POST");
+    config.addAllowedMethod("DELETE");
+    config.addAllowedMethod("PATCH");
+    config.addAllowedMethod("PUT");
 
-        config.addExposedHeader("Location");
-        config.addExposedHeader("X-AUTH-TOKEN");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
+    config.addExposedHeader("Location");
+    config.addExposedHeader("X-AUTH-TOKEN");
+    source.registerCorsConfiguration("/**", config);
+    return new CorsFilter(source);
+  }
 
-    @Bean(name = "customJackson2HttpMessageConverter")
-    public GenericHttpMessageConverter<?> customJackson2HttpMessageConverter() {
+  @Bean(name = "customJackson2HttpMessageConverter")
+  public GenericHttpMessageConverter<?> customJackson2HttpMessageConverter() {
 
-        ObjectMapper objectMapper = new ObjectMapper(new JsonFactory());
+    ObjectMapper objectMapper = new ObjectMapper(new JsonFactory());
 
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        //Filters
+    //Filters
 
-        //Modules
-        objectMapper.registerModule(new JavaTimeModule());
+    //Modules
+    objectMapper.registerModule(new JavaTimeModule());
 
-        SimpleModule codixSerializers = new SimpleModule("Codix serializer", new Version(1, 0, 0, null, null, null));
-        objectMapper.registerModule(codixSerializers);
+    SimpleModule codixSerializers = new SimpleModule("Codix serializer", new Version(1, 0, 0, null, null, null));
+    objectMapper.registerModule(codixSerializers);
 
-        SimpleModule codixDeserializers = new SimpleModule("Codix deserializers", new Version(1, 0, 0, null, null, null));
+    SimpleModule codixDeserializers = new SimpleModule("Codix deserializers", new Version(1, 0, 0, null, null, null));
 
-        objectMapper.registerModule(codixDeserializers);
+    objectMapper.registerModule(codixDeserializers);
 
-        objectMapper.registerModule(new Jdk8Module());
+    objectMapper.registerModule(new Jdk8Module());
 
-        return new MappingJackson2HttpMessageConverter(objectMapper);
-    }
+    return new MappingJackson2HttpMessageConverter(objectMapper);
+  }
 }

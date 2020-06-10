@@ -25,19 +25,20 @@ import java.util.Map;
 @Configuration
 public class SessionConfig extends SpringHttpSessionConfiguration {
 
-    @Bean
-    public MapSessionRepository sessionRepository() {
-        final Map<String, Session> sessions = new HashMap<>();
-        return new MapSessionRepository(sessions);
-    }
 
-    @Bean
-    public HttpSessionStrategy httpSessionStrategy() {
-        return new HeaderHttpSessionStrategy();
-    }
+  @Bean
+  public MapSessionRepository sessionRepository() {
+    final Map<String, Session> sessions = new HashMap<>();
+    return new MapSessionRepository(sessions);
+  }
 
-    @Bean
-    public HttpSessionIdResolver httpSessionIdResolver() {
-        return HeaderHttpSessionIdResolver.xAuthToken();
-    }
+  @Bean
+  public HttpSessionStrategy httpSessionStrategy() {
+    return new HeaderHttpSessionStrategy();
+  }
+
+  @Bean
+  public HttpSessionIdResolver httpSessionIdResolver() {
+    return HeaderHttpSessionIdResolver.xAuthToken();
+  }
 }
