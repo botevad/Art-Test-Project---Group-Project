@@ -23,7 +23,11 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d">
+        <schema name="MIHAELA_SUBCHEVA" object-types="table, materialized view, synonym, view" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d">
@@ -36,8 +40,32 @@
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" dataset="MIHAELA_SUBCHEVA.USERS" active-filter-id="fa34342f-9e7c-4d23-b38d-9f8680dbbf40">
+      <filter id="fa34342f-9e7c-4d23-b38d-9f8680dbbf40" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
+    <filter-actions connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" dataset="MIHAELA_SUBCHEVA.EMAIL" active-filter-id="893819b5-73e7-4f7e-9c45-7ca12caa9eb5">
+      <filter id="893819b5-73e7-4f7e-9c45-7ca12caa9eb5" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
+    <filter-actions connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" dataset="MIHAELA_SUBCHEVA.USERS_PRIVILEGE" active-filter-id="7bbf27ec-d4fe-4fb9-a10b-05745fcb3d42">
+      <filter id="7bbf27ec-d4fe-4fb9-a10b-05745fcb3d42" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
+    <filter-actions connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" dataset="MIHAELA_SUBCHEVA.PRIVILEGE" active-filter-id="b1880858-49a0-4705-be9f-18aa447a10a6">
+      <filter id="b1880858-49a0-4705-be9f-18aa447a10a6" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
+    <filter-actions connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" dataset="MIHAELA_SUBCHEVA.SMS" active-filter-id="be1ecf14-7e40-4a21-b576-460a0253dd9e">
+      <filter id="be1ecf14-7e40-4a21-b576-460a0253dd9e" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
+    <filter-actions connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" dataset="MIHAELA_SUBCHEVA.CALL" active-filter-id="5f0ca5ac-5462-4143-ada5-1b7a17af4334">
+      <filter id="5f0ca5ac-5462-4143-ada5-1b7a17af4334" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
+  </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
+  </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/src/main/resources/db/schema.sql" connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" session-id="MAIN" current-schema="MIHAELA_SUBCHEVA" />
+    <mapping file-url="file://$PROJECT_DIR$/src/main/resources/db/data.sql" connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" session-id="MAIN" current-schema="MIHAELA_SUBCHEVA" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
@@ -55,7 +83,9 @@
     <filters />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+    <recently-used-interfaces>
+      <mapping database-type="ORACLE" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
