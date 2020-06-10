@@ -25,7 +25,8 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d">
-        <schema name="MIHAELA_SUBCHEVA" object-types="table, materialized view, synonym, view" />
+        <schema name="MIHAELA_SUBCHEVA" object-types="function, table, materialized view, sequence, synonym, view, package, type, column" />
+        <schema name="PUBLIC" object-types="function, table, materialized view, sequence, synonym, view, package, type" />
       </connection>
     </loaded-nodes>
   </component>

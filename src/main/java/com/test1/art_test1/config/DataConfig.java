@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -35,9 +36,9 @@ public class DataConfig {
   @Bean
   public DataSource dataSource() throws SQLException {
     oracle.jdbc.pool.OracleDataSource dataSource = new OracleConnectionPoolDataSource();
-    dataSource.setUser("dimitar_stoykov");
+    dataSource.setUser("mihaela_subcheva");
     dataSource.setPassword("dbpass");
-    dataSource.setURL("jdbc:oracle:thin:@83.228.124.173:6223/dimitar_stoykov");
+    dataSource.setURL("jdbc:oracle:thin:@83.228.124.173:6223/mihaela_subcheva");
     dataSource.setImplicitCachingEnabled(true);
 
     return dataSource;

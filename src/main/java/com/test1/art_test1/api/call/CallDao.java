@@ -1,4 +1,4 @@
-package com.test1.art_test1.api.sms;
+package com.test1.art_test1.api.call;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,35 +11,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Property of CODIX SA
- * Date: 5/27/2020 Time: 3:43 PM
- * <p>
- * TODO: WRITE THE DESCRIPTION HERE
- *
- * @author lparvov
- */
 @Repository
-public class SmsDao {
+public class CallDao {
+
     private final NamedParameterJdbcOperations namedTemplate;
 
     @Autowired
-    public SmsDao(NamedParameterJdbcOperations namedTemplate) {
+    public CallDao(NamedParameterJdbcOperations namedTemplate) {
         this.namedTemplate = namedTemplate;
     }
 
-    public String getSmsStatus(String sms_id) {
-        final String sql = "SELECT status FROM sms WHERE sms_id = :sms_id";
+    public String getCallStatus(String call_id) {
+        final String sql = "SELECT status FROM call WHERE call_id = :call_id";
 
-        final SqlParameterSource sp = new MapSqlParameterSource("sms_id", sms_id);
+        final SqlParameterSource sp = new MapSqlParameterSource("call_id", call_id);
 
         return namedTemplate.queryForObject(sql, sp, String.class);
     }
 
-    public List<String> getSmsStatuses(String sms_id) {
-        final String sql = "SELECT status FROM sms WHERE sms_id = :sms_id";
+    public List<String> getCallStatuses(String call_id) {
+        final String sql = "SELECT status FROM call WHERE call_id = :call_id";
 
-        final SqlParameterSource sp = new MapSqlParameterSource("sms_id", sms_id);
+        final SqlParameterSource sp = new MapSqlParameterSource("call_id", call_id);
 
         return namedTemplate.query(sql, sp, new RowMapper<String>() {
             @Override
@@ -50,4 +43,5 @@ public class SmsDao {
             }
         });
     }
+
 }

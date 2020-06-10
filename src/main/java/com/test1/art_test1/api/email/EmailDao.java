@@ -1,4 +1,4 @@
-package com.test1.art_test1.api.sms;
+package com.test1.art_test1.api.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,35 +11,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Property of CODIX SA
- * Date: 5/27/2020 Time: 3:43 PM
- * <p>
- * TODO: WRITE THE DESCRIPTION HERE
- *
- * @author lparvov
- */
 @Repository
-public class SmsDao {
+public class EmailDao {
     private final NamedParameterJdbcOperations namedTemplate;
 
     @Autowired
-    public SmsDao(NamedParameterJdbcOperations namedTemplate) {
+    public EmailDao(NamedParameterJdbcOperations namedTemplate) {
         this.namedTemplate = namedTemplate;
     }
 
-    public String getSmsStatus(String sms_id) {
-        final String sql = "SELECT status FROM sms WHERE sms_id = :sms_id";
+    public String getEmailStatus(String email_id) {
+        final String sql = "SELECT status FROM email WHERE email_id = :email_id";
 
-        final SqlParameterSource sp = new MapSqlParameterSource("sms_id", sms_id);
+        final SqlParameterSource sp = new MapSqlParameterSource("email_id", email_id);
 
         return namedTemplate.queryForObject(sql, sp, String.class);
     }
 
-    public List<String> getSmsStatuses(String sms_id) {
-        final String sql = "SELECT status FROM sms WHERE sms_id = :sms_id";
+    public List<String> getEmailStatuses(String email_id) {
+        final String sql = "SELECT status FROM email WHERE email_id = :email_id";
 
-        final SqlParameterSource sp = new MapSqlParameterSource("sms_id", sms_id);
+        final SqlParameterSource sp = new MapSqlParameterSource("email_id", email_id);
 
         return namedTemplate.query(sql, sp, new RowMapper<String>() {
             @Override

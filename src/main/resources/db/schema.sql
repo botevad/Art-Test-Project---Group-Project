@@ -1,13 +1,16 @@
 create TABLE users (
 id INT PRIMARY KEY,
 username VARCHAR(150),
-password VARCHAR(20) ,
-email VARCHAR(50),
-phone_numb VARCHAR(13),
-login VARCHAR2(20),
-CONSTRAINT chkPhoneNumb CHECK(phone_numb NOT LIKE '%[^+0-9]%' ),
-CONSTRAINT chkPhoneNumbL CHECK(LENGTH(phone_numb)=10 OR LENGTH(phone_numb)=13)
+password VARCHAR(20),
+login VARCHAR(20)
 );
+CREATE TRIGGER login_update
+AFTER INSERT  ON users
+BEGIN
+    UPDATE users
+        SET login = username;
+END;
+
 
 create sequence users_seq
 minvalue 1
@@ -16,7 +19,7 @@ start with 1
 increment by 1;
 
 --DROP TABLE users;
---DROP SEQUENCE users_seq; 
+--DROP SEQUENCE users_seq;
 
 
 create TABLE SMS(
@@ -30,7 +33,7 @@ create TABLE SMS(
     CONSTRAINT chkStatusSMS  CHECK(status IN('send','sent','error' ))
     );
     
-  -- DROP TABLE SMS;
+ -- DROP TABLE SMS;
     
 create TABLE email (
     email_id INT ,
@@ -43,7 +46,7 @@ create TABLE email (
     CONSTRAINT chkStatusEmail  CHECK(status IN('send','sent','error' ))
   
       );
- -- DROP TABLE email;
+ --DROP TABLE email;
     
     
 create TABLE call (
@@ -73,3 +76,4 @@ create TABLE users_privilege(
     FOREIGN KEY (ID_USER) REFERENCES users (id),
     FOREIGN KEY (ID_PRIVILEGE) REFERENCES privilege (id)
 );
+--DROP TABLE users_privilege;

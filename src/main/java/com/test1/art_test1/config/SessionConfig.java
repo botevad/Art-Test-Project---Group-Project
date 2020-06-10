@@ -25,6 +25,7 @@ import java.util.Map;
 @Configuration
 public class SessionConfig extends SpringHttpSessionConfiguration {
 
+
   @Bean
   public MapSessionRepository sessionRepository() {
     final Map<String, Session> sessions = new HashMap<>();

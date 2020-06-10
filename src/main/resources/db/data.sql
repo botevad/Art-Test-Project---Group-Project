@@ -1,7 +1,11 @@
-insert into users(id,username,password,email,phone_numb,login) values (users_seq.nextval,'admin','dsafa2','sfghha','+359456123','admin');
-insert into users(id,username,password,email,phone_numb,login) values (users_seq.nextval,'dada','dsafda2','sfgfhha','+359456122','admin');
-insert into users(id,username,password,email,phone_numb,login) values (users_seq.nextval,'guest','dsafda3','sfgfhha','+359456122','guest');
-insert into users(id,username,password,email,phone_numb,login) values (users_seq.nextval,'dasfaf','dsafda2','sfgfhha','+359456122','guest');
+--insert into users(id,username,password,email,phone_numb,login) values (users_seq.nextval,'admin','pass','sfghha','+359456123','admin');
+--insert into users(id,username,password,email,phone_numb,login) values (users_seq.nextval,'dada','dsafda2','sfgfhha','+359456122','admin');
+--insert into users(id,username,password,email,phone_numb,login) values (users_seq.nextval,'guest','pass','sfgfhha','+359456122','guest');
+--insert into users(id,username,password,email,phone_numb,login) values (users_seq.nextval,'dasfaf','dsafda2','sfgfhha','+359456122','guest');
+INSERT INTO users(id,username,password,login) VALUES(users_seq.NEXTVAL,'admin','pass','admin');
+INSERT INTO users(id,username,password,login) VALUES(users_seq.NEXTVAL,'guest','pass','guest');
+INSERT INTO sms (id,user_id,status) VALUES(users_seq.NEXTVAL,2,'sending');
+ INSERT INTO email (id,user_id,status) VALUES(users_seq.NEXTVAL,1,'sending');
 
 insert into privilege ( id,privilege_name, key) values (users_seq.nextval,'CREATE', 'C');
 insert into privilege (id, privilege_name, key) values (users_seq.nextval,'READ', 'R');
