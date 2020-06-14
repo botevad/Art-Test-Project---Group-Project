@@ -1,19 +1,10 @@
 package com.test1.art_test1;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * Property of CODIX SA
@@ -25,12 +16,14 @@ import java.util.List;
  */
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
-    private final NamedParameterJdbcOperations namedTemplate;
 
     @Autowired
-    public CustomAuthenticationProvider(@Qualifier("namedTemplate") NamedParameterJdbcOperations namedTemplate) {
-        this.namedTemplate = namedTemplate;
+    private final SecurityAuthService securityAuthService;
+
+    public CustomAuthenticationProvider(SecurityAuthService securityAuthService) {
+        this.securityAuthService = securityAuthService;
     }
+
 
     @Override
     public Authentication authenticate(Authentication auth)
@@ -39,26 +32,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = auth.getCredentials()
                 .toString();
 
-        final List<SimpleGrantedAuthority> list;
+        return securityAuthService.getAuth(username, password);
 
-        try {
-            namedTemplate.queryForObject("SELECT 1 FROM USERS WHERE login = :username", new MapSqlParameterSource("username", username), Integer.class);
-
-            list =
-                    namedTemplate.query("SELECT key FROM privilege WHERE id IN (SELECT id_privilege FROM usres_privilege WHERE id_user IN (SELECT id FROM users WHERE login = :username))",
-                            new MapSqlParameterSource("username", username), (rs, rowNum) -> new SimpleGrantedAuthority(rs.getString(1)));
-
-        } catch (IncorrectResultSizeDataAccessException e) {
-            throw new BadCredentialsException("External system authentication failed");
-        }
-
-        if ("admin".equals(username) && "pass".equals(password) || "guest".equals(username)) {
-            return new UsernamePasswordAuthenticationToken
-                    (username, password, list);
-        } else {
-            throw new
-                    BadCredentialsException("External system authentication failed");
-        }
     }
 
     @Override

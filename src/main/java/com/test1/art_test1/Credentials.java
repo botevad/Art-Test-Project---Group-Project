@@ -19,6 +19,8 @@ public class Credentials {
      */
     private String userPass;
 
+    private String id;
+
     public Credentials() {
     }
 
@@ -41,5 +43,13 @@ public class Credentials {
 
     public void setUserPass(String userPass) {
         this.userPass = userPass;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

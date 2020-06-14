@@ -1,15 +1,16 @@
 package com.test1.art_test1.api.sms;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import com.test1.art_test1.api.Result;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -23,28 +24,23 @@ import java.util.List;
 @Service
 public class SmsService {
     private final SmsDao smsDao;
-    private final NamedParameterJdbcOperations namedTemplate;
 
 
-    @Autowired
-    public SmsService(SmsDao smsDao, NamedParameterJdbcOperations namedTemplate) {
+    public SmsService(SmsDao smsDao) {
         this.smsDao = smsDao;
-        this.namedTemplate = namedTemplate;
     }
 
-    List<String> getAllUserSms(String username) {
-        final String sql = "SELECT sms_id,text,reciever FROM SMS WHERE username IN (SELECT username FROM users WHERE id = :id)";
-        final SqlParameterSource sp = new MapSqlParameterSource("username", username);
-
-        return namedTemplate.query(sql, sp, new RowMapper<String>() {
-            @Override
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                rs.getString("status");
-                ///rs.getString("colm2");
-                return rs.getString("status");
-            }
-        });
+    public List<Result> getAllUserSms(String username) {
+        return smsDao.getAllUserSms(username);
     }
 
+    public String getSmsStatus(String id) {
+        return smsDao.getSmsStatus(id);
+    }
 
+    public void createSms(@AuthenticationPrincipal Authentication authentication) {
+        smsDao.createSms(authentication);
+
+    }
 }
+

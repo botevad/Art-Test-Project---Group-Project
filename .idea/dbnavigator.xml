@@ -25,8 +25,8 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d">
-        <schema name="MIHAELA_SUBCHEVA" object-types="function, table, materialized view, sequence, synonym, view, package, type, column" />
-        <schema name="PUBLIC" object-types="function, table, materialized view, sequence, synonym, view, package, type" />
+        <schema name="MIHAELA_SUBCHEVA" object-types="type function, dataset trigger, function, sequence, constraint, dblink, cluster, index, procedure, package, materialized view, table, column, nested table, package type, type, dimension, package function, database trigger, synonym, view" />
+        <schema name="PUBLIC" object-types="package, type, synonym" />
       </connection>
     </loaded-nodes>
   </component>
