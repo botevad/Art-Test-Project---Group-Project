@@ -25,8 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d">
-        <schema name="MIHAELA_SUBCHEVA" object-types="type function, dataset trigger, function, sequence, constraint, dblink, cluster, index, procedure, package, materialized view, table, column, nested table, package type, type, dimension, package function, database trigger, synonym, view" />
-        <schema name="PUBLIC" object-types="package, type, synonym" />
+        <schema name="MIHAELA_SUBCHEVA" object-types="dimension, dblink, type, materialized view, column, index, sequence, constraint, synonym, dataset trigger, package, view, table, cluster, function, procedure, database trigger, nested table" />
       </connection>
     </loaded-nodes>
   </component>
@@ -36,7 +35,10 @@
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" object-ref="schemas/MIHAELA_SUBCHEVA/tables/CALL" />
+      <object connection-id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" object-ref="schemas/MIHAELA_SUBCHEVA/tables/EMAIL" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="7dc635e9-d5cf-4a68-ae44-88e717bd8c5d" />

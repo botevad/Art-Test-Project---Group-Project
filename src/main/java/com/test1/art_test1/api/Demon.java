@@ -1,14 +1,11 @@
 package com.test1.art_test1.api;
 
 
-import com.test1.art_test1.api.sms.SmsResource;
-import com.test1.art_test1.config.DataConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowCountCallbackHandler;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +13,10 @@ import java.sql.*;
 
 @Component
 public class Demon {
-
+    @Autowired
     private static NamedParameterJdbcOperations namedTemplate;
 
+    @Autowired
     public Demon(NamedParameterJdbcOperations namedTemplate) {
         this.namedTemplate = namedTemplate;
     }
@@ -28,7 +26,7 @@ public class Demon {
     }
 
     @Scheduled(fixedRate = 5000)
-    public static void checkSmsStatus() throws SQLException {
+    public static void checkSmsStatus() {
         String status;
         RowCountCallbackHandler countCallback = new RowCountCallbackHandler();  // not reusable
         namedTemplate.query("SELECT * FROM sms WHERE  status = 'sending'", countCallback);
@@ -48,19 +46,12 @@ public class Demon {
                 default:
                     throw new IllegalStateException("Unexpected value: " + n);
             }
-            try {
                 namedTemplate.update("UPDATE sms SET status=:status WHERE status = 'sending'", new MapSqlParameterSource("status", status));
-                //  ("UPDATE SMS SET status="+ statusChange+ "WHERE status = 'sending';", new MapSqlParameterSource("status",statusChange), String.class);
-
-
-            } catch (DataAccessException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     @Scheduled(fixedRate = 5000)
-    public static void checkEmalStatus() throws SQLException {
+    public static void checkEmalStatus() {
         String status;
         RowCountCallbackHandler countCallback = new RowCountCallbackHandler();  // not reusable
         namedTemplate.query("SELECT * FROM email WHERE status = 'sending'", countCallback);
@@ -79,7 +70,6 @@ public class Demon {
             }
             try {
                 namedTemplate.update("UPDATE email SET status=:status WHERE status = 'sending'", new MapSqlParameterSource("status", status));
-                //  ("UPDATE SMS SET status="+ statusChange+ "WHERE status = 'sending';", new MapSqlParameterSource("status",statusChange), String.class);
 
 
             } catch (DataAccessException e) {
@@ -89,7 +79,7 @@ public class Demon {
     }
 
     @Scheduled(fixedRate = 5000)
-    public static void checkCallStatus() throws SQLException {
+    public static void checkCallStatus() {
         String status;
         RowCountCallbackHandler countCallback = new RowCountCallbackHandler();  // not reusable
         namedTemplate.query("SELECT * FROM call WHERE status = 'calling' ", countCallback);
@@ -111,7 +101,6 @@ public class Demon {
             }
             try {
                 namedTemplate.update("UPDATE call SET status=:status WHERE status = 'calling'", new MapSqlParameterSource("status", status));
-                //  ("UPDATE SMS SET status="+ statusChange+ "WHERE status = 'sending';", new MapSqlParameterSource("status",statusChange), String.class);
 
 
             } catch (DataAccessException e) {

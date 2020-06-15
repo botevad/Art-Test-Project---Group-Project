@@ -6,6 +6,7 @@ INSERT INTO users(id,username,password) VALUES(users_seq.NEXTVAL,'pesho','pass')
 INSERT INTO users(id,username,password,login) VALUES(users_seq.NEXTVAL,'guest','pass','guest');
 INSERT INTO sms (id,user_id,status) VALUES(users_seq.NEXTVAL,2,'sending');
  INSERT INTO email (id,user_id,status) VALUES(users_seq.NEXTVAL,1,'sending');
+ INSERT INTO call (id,user_id,status) VALUES(users_seq.NEXTVAL,1,'calling');
 
 insert into privilege ( id,privilege_name, key) values (users_seq.nextval,'CREATE', 'C');
 insert into privilege (id, privilege_name, key) values (users_seq.nextval,'READ', 'R');

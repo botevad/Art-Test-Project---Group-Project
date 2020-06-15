@@ -44,7 +44,7 @@ public class SmsDao {
     }
 
 
-    public List<Result> getAllUserSms(String username) {
+    public List<Result> getAllUserSms(@Length(max = 15) String username) {
 
         final SqlParameterSource sp = new MapSqlParameterSource("username", username);
         return namedTemplate.query("SELECT status,user_id FROM SMS WHERE user_id IN (SELECT id FROM users WHERE username= :username)",
@@ -68,6 +68,5 @@ public class SmsDao {
         final String sql = "INSERT INTO SMS(id,user_id,status) VALUES (users_seq.NEXTVAL,:user_id,:status)";
         namedTemplate.update(sql, new MapSqlParameterSource("user_id", user_id)
                 .addValue("status", status));
-
     }
 }
